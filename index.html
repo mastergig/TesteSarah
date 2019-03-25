@@ -71,15 +71,21 @@
             }
         </style>
         <script type="text/javascript">
-            var qtd = 2.5;
+            var qtd = 15;
             var tempo = 100; //ms
             var sentidos = [1,-2,1,-1,2,-1]; //pela ordem dos ids de estrelas
             var rotacao = [0,0,0,0,0,0];
+            var real = [0,0,0,0,0,0];
             function roda()
             {
+                qtd = velocidade.value;
                 for(var i = 0; i < sentidos.length; i++)
                 {
                     rotacao[i] += qtd * sentidos[i];
+                    real[i] += qtd * sentidos[i];
+                    if(real[i] >= 360) real[i] -= 360;
+                    if(real[i] <= -360) real[i] += 360;
+                    
                     document.getElementById("st"+(i+1)).style.transform= "rotate("+rotacao[i]+"deg)";
                 }
                 setTimeout(function(){ roda(); }, tempo);
@@ -100,5 +106,6 @@
                     <div id='st6' class='st str sts'></div>
             </div>
         </div>
+        <br/><input type="number" id='velocidade' value='15' step="0.05" />
     </body>
 </html>
